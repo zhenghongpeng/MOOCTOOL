@@ -2,11 +2,8 @@
     $(init);
     var $movieTitleTxt;
     var $searchBtn;
-    var UDACITY_URL = "https://udacity.com/public-api/v0/courses";
+    var SEARCH_URL = "http://www.omdbapi.com/?s=TITLE";
     var $searchResults;
-    var $omscsdescription;
-
-    var $omscsname;
 
     function init (){
 
@@ -14,18 +11,16 @@
         $movieTitleTxt =$("#movieTitleTxt");
         $searchBtn = $("#searchBtn");
         $searchResults =$("#searchResults tbody")
-        $omscsdescription =$("#omscsdescription");
 
-        $omscsname = $("#omscsname");
 
         $searchBtn.click(searchMovie);
     }
 
         function searchMovie(){
 
-            //var title = $movieTitleTxt.val();
+            var title = $movieTitleTxt.val();
 
-            var url = UDACITY_URL;
+            var url = SEARCH_URL.replace("TITLE", title);
 
             //alert ("url " +url);
 
@@ -37,34 +32,31 @@
         }
     function renderSearchResults(response){
 
-
+        //console.log(response);
 
         var totalResults = response.totalResutls;
-        var omscscourse = response.tracks[5];
-        omscsdescription = omscscourse.description;
-        omscsname = omscscourse.name;
-        omscscoursesarray = omscscourse.courses;
+        var movies = response.Search;
 
+        for (var m=0; m<movies.length;m++){
 
-        //console.log(omscscourse);
-    //
-        for (var m=0; m<omscscoursesarray.length;m++){
-
-            var courseID = omscscoursesarray[m];
+            var movie = movies[m];
             //console.log(movie);
-
+            var posterUrl = movie.Poster;
+            var title = movie.Title;
+            var year = movie.Year;
+            var imdbID = movie.imdbID;
 
             var $tr =$("<tr>")
-                .attr("id", courseID)
-                .click("fetchCourseDetails");
+                .attr("id", imdbID)
+                .click("fetchMovieDetails");
 
-            //var $img =$("<img>")
-            //    .attr("src", posterUrl)
-            //    .addClass("posterThmb");
+            var $img =$("<img>")
+                .attr("src", posterUrl)
+                .addClass("posterThmb");
 
-            //var $td = $("<td>")
-            //    .append($img)
-            //    .appendTo($tr)
+            var $td = $("<td>")
+                .append($img)
+                .appendTo($tr)
 
             var $td = $("<td>")
                 .append(title)
@@ -83,13 +75,13 @@
 
         }
 
-    //
+
     }
 
-    //function fetchMovieDetails(event){
-    //
-    //    //alert("fetchMovieDetails");
-    //    console.log(event);
-    //}
+    function fetchMovieDetails(event){
+
+        //alert("fetchMovieDetails");
+        console.log(event);
+    }
 
 })();

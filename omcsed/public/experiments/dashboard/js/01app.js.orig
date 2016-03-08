@@ -2,7 +2,11 @@
     $(init);
     var $movieTitleTxt;
     var $searchBtn;
+<<<<<<< HEAD
+    var UDACITY_URL = "https://crossorigin.me/https://udacity.com/public-api/v0/courses";
+=======
     var UDACITY_URL = "https://udacity.com/public-api/v0/courses";
+>>>>>>> b1b189f278ca82b11f447b2785a65a80bc1296cc
     var $searchResults;
     var $omscsdescription;
     var $totalResults;
